@@ -5,7 +5,7 @@ const cors = require("cors");
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-app.use(cors());
+// app.use(cors());
 
 const http = app.listen(PORT, () =>
 	console.log(`🚀 Server ready at http://localhost:${PORT}`)
@@ -14,7 +14,7 @@ const http = app.listen(PORT, () =>
 const io = socketIo(http, {
 	cors: {
 		origin: "http://localhost:3000",
-		methods: ["GET", "POST"],
+		methods: ["GET", "POST", "send-message", "receive-message"],
 	},
 });
 
