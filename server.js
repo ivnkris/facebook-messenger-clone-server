@@ -22,6 +22,10 @@ io.once("connection", (socket) => {
 	const id = socket.handshake.query.id;
 	socket.join(id);
 
+	socket.on("connect_error", (err) => {
+		console.log(`connect_error due to ${err.message}`);
+	});
+
 	socket.on("send-message", ({ recipients, text }) => {
 		recipients.forEach((recipient) => {
 			const newRecipients = recipients.filter((r) => r !== recipient);
