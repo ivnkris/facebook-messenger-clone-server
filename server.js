@@ -1,6 +1,24 @@
-const io = require("socket.io")(5000);
+const express = require("express");
+const socketIo = require("socket.io");
+const cors = require("cors");
 
-io.on("connection", (socket) => {
+const PORT = process.env.PORT || 5000;
+const app = express();
+
+app.use(cors());
+
+const http = app.listen(PORT, () =>
+	console.log(`🚀 Server ready at http://localhost:${PORT}`)
+);
+
+const io = socketIo(http, {
+	cors: {
+		origin: "http://localhost:3000",
+		methods: ["GET", "POST"],
+	},
+});
+
+io.once("connection", (socket) => {
 	const id = socket.handshake.query.id;
 	socket.join(id);
 
