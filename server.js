@@ -1,4 +1,9 @@
-const io = require("socket.io")(5000);
+const io = require("socket.io")(5000, {
+	cors: {
+		origin: "http://localhost:3000",
+		methods: ["GET", "POST"],
+	},
+});
 
 io.on("connection", (socket) => {
 	const id = socket.handshake.query.id;
